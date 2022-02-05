@@ -14,7 +14,7 @@ Warning: достаточно во многих местах можно встр
 * [Конечные автоматы](2-semester/04-lab-automata)
   - [Условия](2-semester/04-lab-automata/s2-01-lab-automata.pdf)
 * [КС грамматики](2-semester/05-lab-cf-grammar)
-  - [Условия](2-semester/05-lab-cf-grammar)
+  - [Условия](2-semester/05-lab-cf-grammar/s2-02-lab-cf-grammar.pdf)
 ### 3 семестр
 * [Графы](3-semester/01-lab-graph)
   - [Условия](3-semester/01-lab-graph/s3-01-lab-graph.pdf)
