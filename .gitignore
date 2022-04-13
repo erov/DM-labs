@@ -30,3 +30,8 @@
 *.exe
 *.out
 *.app
+
+
+4-semester/01-lab-genfunction/input.txt
+4-semester/01-lab-genfunction/output.txt
+4-semester/01-lab-genfunction/*.exe
