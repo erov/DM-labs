@@ -28,7 +28,6 @@
 
 # Executables
 *.exe
-*.out
 *.app
 
 
@@ -37,4 +36,5 @@
 4-semester/01-lab-genfunction/*.exe
 
 4-semester/02-lab-turing/turing-machine-visualizer
+4-semester/02-lab-turing/turing-machine-visualizer/*
 4-semester/02-lab-turing/input.txt
