@@ -1,0 +1,156 @@
+3
+
+S 0 _ _ -> go_to_number_end 0 > _ ^ _ ^
+S 1 _ _ -> go_to_number_end 1 > _ ^ _ ^
+
+go_to_number_end 0 _ _ -> go_to_number_end 0 > _ ^ _ ^
+go_to_number_end 1 _ _ -> go_to_number_end 1 > _ ^ _ ^
+go_to_number_end | _ _ -> prepare_copying | ^ _ ^ _ ^
+go_to_number_end _ _ _ -> prepare_copying | ^ _ ^ _ ^
+
+prepare_copying | _ _ -> fill_0_x10 | ^ 0 > _ ^
+fill_0_x10 | _ _ -> fill_0_x9 | ^ 0 > _ ^
+fill_0_x9 | _ _ -> fill_0_x8 | ^ 0 > _ ^
+fill_0_x8 | _ _ -> fill_0_x7 | ^ 0 > _ ^
+fill_0_x7 | _ _ -> fill_0_x6 | ^ 0 > _ ^
+fill_0_x6 | _ _ -> fill_0_x5 | ^ 0 > _ ^
+fill_0_x5 | _ _ -> fill_0_x4 | ^ 0 > _ ^
+fill_0_x4 | _ _ -> fill_0_x3 | ^ 0 > _ ^
+fill_0_x3 | _ _ -> fill_0_x2 | ^ 0 > _ ^
+fill_0_x2 | _ _ -> fill_0_x1 | ^ 0 > _ ^
+fill_0_x1 | _ _ -> start_copying | < 0 ^ _ ^
+
+start_copying 0 0 _ -> start_copying 0 < 0 < _ ^
+start_copying 1 0 _ -> start_copying 1 < 1 < _ ^
+start_copying _ 0 _ -> go_to_next _ > 0 > _ ^
+start_copying | 0 _ -> go_to_next | > 0 > _ ^
+
+go_to_next 0 0 _ -> go_to_next 0 > 0 > _ ^
+go_to_next 0 1 _ -> go_to_next 0 > 1 > _ ^
+go_to_next 1 0 _ -> go_to_next 1 > 0 > _ ^
+go_to_next 1 1 _ -> go_to_next 1 > 1 > _ ^
+go_to_next | _ _ -> check_next_number | > _ ^ _ ^
+
+check_next_number _ _ _ -> check_next_number_false _ ^ _ ^ _ ^
+check_next_number 0 _ _ -> S 0 ^ | > _ ^
+check_next_number 1 _ _ -> S 1 ^ | > _ ^
+
+check_next_number_false _ _ _ -> clear_1st_stay_2nd _ < $ ^ _ ^
+clear_1st_stay_2nd | $ _ -> clear_1st_stay_2nd _ < $ ^ _ ^
+clear_1st_stay_2nd 0 $ _ -> clear_1st_stay_2nd _ < $ ^ _ ^
+clear_1st_stay_2nd 1 $ _ -> clear_1st_stay_2nd _ < $ ^ _ ^
+clear_1st_stay_2nd _ $ _ -> stay_1st_go_to_start_2nd _ ^ $ < _ ^
+
+stay_1st_go_to_start_2nd _ 0 _ -> stay_1st_go_to_start_2nd _ ^ 0 < _ ^
+stay_1st_go_to_start_2nd _ 1 _ -> stay_1st_go_to_start_2nd _ ^ 1 < _ ^
+stay_1st_go_to_start_2nd _ | _ -> stay_1st_go_to_start_2nd _ ^ | < _ ^
+stay_1st_go_to_start_2nd _ _ _ -> copy_one_number_from_2nd_to_1st _ ^ _ > _ ^
+
+copy_one_number_from_2nd_to_1st _ 0 _ -> copy_one_number_from_2nd_to_1st 0 > 0 > _ ^
+copy_one_number_from_2nd_to_1st _ 1 _ -> copy_one_number_from_2nd_to_1st 1 > 1 > _ ^
+copy_one_number_from_2nd_to_1st _ | _ -> go_to_start_1st_stay_2nd _ < ? ^ _ ^
+copy_one_number_from_2nd_to_1st _ $ _ -> go_to_1st_begin _ < $ ^ _ ^
+
+
+go_to_1st_begin 0 $ _ -> go_to_1st_begin 0 < $ ^ _ ^
+go_to_1st_begin 1 $ _ -> go_to_1st_begin 1 < $ ^ _ ^
+go_to_1st_begin _ $ _ -> remove_leading_zeroes _ > $ ^ _ ^
+
+
+go_to_start_1st_stay_2nd 0 ? _ -> go_to_start_1st_stay_2nd 0 < ? ^ _ ^
+go_to_start_1st_stay_2nd 1 ? _ -> go_to_start_1st_stay_2nd 1 < ? ^ _ ^
+go_to_start_1st_stay_2nd _ ? _ -> compare _ > ? > _ ^
+
+compare 0 0 _ -> compare 0 > 0 > _ ^
+compare 0 1 _ -> compare_less 0 ^ 1 ^ _ ^
+compare 1 0 _ -> compare_greater 1 ^ 0 ^ _ ^
+compare 1 1 _ -> compare 1 > 1 > _ ^
+compare _ | _ -> compare_less _ ^ | ^ _ ^
+compare _ $ _ -> compare_less _ ^ $ ^ _ ^
+compare | | _ -> compare_less | ^ | ^ _ ^
+compare | $ _ -> compare_less | ^ $ ^ _ ^
+
+
+compare_less 0 0 _ -> compare_less 0 > 0 > _ ^
+compare_less 0 1 _ -> compare_less 0 > 1 > _ ^
+compare_less 1 0 _ -> compare_less 1 > 0 > _ ^
+compare_less 1 1 _ -> compare_less 1 > 1 > _ ^
+compare_less _ | _ -> return_copy_this_number_from_2nd_to_1st | > | < _ ^
+compare_less _ $ _ -> return_copy_this_number_from_2nd_to_1st | > $ < _ ^
+compare_less | | _ -> 2nd_back_to_number_being | ^ | < _ ^
+compare_less | $ _ -> 2nd_back_to_number_being | ^ $ < _ ^
+
+2nd_back_to_number_being | 0 _ -> 2nd_back_to_number_being | ^ 0 < _ ^
+2nd_back_to_number_being | 1 _ -> 2nd_back_to_number_being | ^ 1 < _ ^
+2nd_back_to_number_being | ? _ -> compare | > ? > _ ^
+
+return_copy_this_number_from_2nd_to_1st _ 0 _ -> return_copy_this_number_from_2nd_to_1st _ ^ 0 < _ ^
+return_copy_this_number_from_2nd_to_1st _ 1 _ -> return_copy_this_number_from_2nd_to_1st _ ^ 1 < _ ^
+return_copy_this_number_from_2nd_to_1st _ ? _ -> copy_this_number_from_2nd_to_1st _ ^ ? > _ ^
+
+copy_this_number_from_2nd_to_1st _ 0 _ -> copy_this_number_from_2nd_to_1st 0 > 0 > _ ^
+copy_this_number_from_2nd_to_1st _ 1 _ -> copy_this_number_from_2nd_to_1st 1 > 1 > _ ^
+copy_this_number_from_2nd_to_1st _ | _ -> go_to_1st_start _ < | ^ _ ^
+copy_this_number_from_2nd_to_1st _ $ _ -> go_to_1st_start _ < $ ^ _ ^
+
+go_to_1st_start 0 | _ -> go_to_1st_start 0 < | ^ _ ^
+go_to_1st_start 1 | _ -> go_to_1st_start 1 < | ^ _ ^
+go_to_1st_start | | _ -> go_to_1st_start | < | ^ _ ^
+go_to_1st_start _ | _ -> compare _ > ? > _ ^
+
+go_to_1st_start 0 $ _ -> go_to_1st_start 0 < $ ^ _ ^
+go_to_1st_start 1 $ _ -> go_to_1st_start 1 < $ ^ _ ^
+go_to_1st_start | $ _ -> go_to_1st_start | < $ ^ _ ^
+go_to_1st_start _ $ _ -> remove_leading_zeroes _ > $ ^ _ ^
+
+
+compare_greater 0 0 _ -> compare_greater 0 < 0 < _ ^
+compare_greater 0 1 _ -> compare_greater 0 < 1 < _ ^
+compare_greater 1 0 _ -> compare_greater 1 < 0 < _ ^
+compare_greater 1 1 _ -> compare_greater 1 < 1 < _ ^
+compare_greater _ ? _ -> clear_from_1st_to_3rd _ > ? ^ _ ^
+compare_greater | ? _ -> clear_from_1st_to_3rd | > ? ^ _ ^
+
+clear_from_1st_to_3rd 0 ? _ -> clear_from_1st_to_3rd _ > ? ^ 0 >
+clear_from_1st_to_3rd 1 ? _ -> clear_from_1st_to_3rd _ > ? ^ 1 >
+clear_from_1st_to_3rd | ? _ -> clear_from_1st_to_3rd _ > ? ^ | >
+clear_from_1st_to_3rd _ ? _ -> back_to_inserting_place_1st_and_to_start_3rd _ < ? ^ _ <
+
+back_to_inserting_place_1st_and_to_start_3rd _ ? 0 -> back_to_inserting_place_1st_and_to_start_3rd _ < ? ^ 0 <
+back_to_inserting_place_1st_and_to_start_3rd _ ? 1 -> back_to_inserting_place_1st_and_to_start_3rd _ < ? ^ 1 <
+back_to_inserting_place_1st_and_to_start_3rd _ ? | -> back_to_inserting_place_1st_and_to_start_3rd _ < ? ^ | <
+back_to_inserting_place_1st_and_to_start_3rd _ ? _ -> insert_from_2nd_to_1st _ ^ ? > _ ^
+back_to_inserting_place_1st_and_to_start_3rd | ? _ -> insert_from_2nd_to_1st | > ? > _ ^
+
+insert_from_2nd_to_1st _ 0 _ -> insert_from_2nd_to_1st 0 > 0 > _ ^
+insert_from_2nd_to_1st _ 1 _ -> insert_from_2nd_to_1st 1 > 1 > _ ^
+insert_from_2nd_to_1st _ | _ -> copy_from_3rd_into_1st | > | ^ _ >
+insert_from_2nd_to_1st _ $ _ -> copy_from_3rd_into_1st | > $ ^ _ >
+
+copy_from_3rd_into_1st _ | 0 -> copy_from_3rd_into_1st 0 > | ^ _ >
+copy_from_3rd_into_1st _ | 1 -> copy_from_3rd_into_1st 1 > | ^ _ >
+copy_from_3rd_into_1st _ | | -> copy_from_3rd_into_1st | > | ^ _ >
+copy_from_3rd_into_1st _ | _ -> go_to_1st_start _ < | ^ _ ^
+
+copy_from_3rd_into_1st _ $ 0 -> copy_from_3rd_into_1st 0 > $ ^ _ >
+copy_from_3rd_into_1st _ $ 1 -> copy_from_3rd_into_1st 1 > $ ^ _ >
+copy_from_3rd_into_1st _ $ | -> copy_from_3rd_into_1st | > $ ^ _ >
+copy_from_3rd_into_1st _ $ _ -> go_to_1st_start _ < $ ^ _ ^
+
+
+remove_leading_zeroes 0 $ _ -> remove_leading_zeroes _ > $ ^ _ ^
+remove_leading_zeroes 1 $ _ -> remove_leading_zeroes_ignore _ > $ ^ 1 > 
+remove_leading_zeroes | $ _ -> print_splitter _ ^ $ ^ 0 >
+remove_leading_zeroes _ $ _ -> copy_answer_from_3rd_into_1st _ < $ ^ 0 ^ 
+
+print_splitter _ $ _ -> remove_leading_zeroes _ > $ ^ | >
+
+remove_leading_zeroes_ignore 0 $ _ -> remove_leading_zeroes_ignore _ > $ ^ 0 >
+remove_leading_zeroes_ignore 1 $ _ -> remove_leading_zeroes_ignore _ > $ ^ 1 >
+remove_leading_zeroes_ignore | $ _ -> remove_leading_zeroes _ > $ ^ | >
+remove_leading_zeroes_ignore _ $ _ -> copy_answer_from_3rd_into_1st _ < $ ^ _ <
+
+copy_answer_from_3rd_into_1st _ $ 0 -> copy_answer_from_3rd_into_1st 0 < $ ^ _ <
+copy_answer_from_3rd_into_1st _ $ 1 -> copy_answer_from_3rd_into_1st 1 < $ ^ _ <
+copy_answer_from_3rd_into_1st _ $ | -> copy_answer_from_3rd_into_1st | < $ ^ _ <
+copy_answer_from_3rd_into_1st _ $ _ -> AC _ > $ ^ _ >

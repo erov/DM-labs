@@ -1,0 +1,88 @@
+start: s
+accept: ac
+reject: rj
+blank: _
+
+s 0 -> to_last 0 >
+s 1 -> to_last 1 >
+s _ -> ac _ ^
+
+to_last 0 -> to_last 0 >
+to_last 1 -> to_last 1 >
+to_last _ -> save_least _ <
+
+save_least 0 -> copy_0 # > 
+save_least 1 -> copy_1 # >
+save_least _ -> ac _ >
+
+copy_0 0 -> copy_0 0 >
+copy_0 1 -> copy_0 1 >
+copy_0 _ -> return_0 ? <
+
+copy_1 0 -> copy_1 0 >
+copy_1 1 -> copy_1 1 >
+copy_1 _ -> return_1 ? < 
+
+return_0 0 -> return_0 0 <
+return_0 1 -> return_0 1 <
+return_0 # -> save_others_least_0 0 <
+
+return_1 0 -> return_1 0 <
+return_1 1 -> return_1 1 <
+return_1 # -> save_others_least_1 1 < 
+
+save_others_least_0 0 -> copy_00 # >
+save_others_least_0 1 -> copy_01 # > 
+save_others_least_0 _ -> clean_0 _ > 
+
+save_others_least_1 0 -> copy_10 # > 
+save_others_least_1 1 -> copy_11 # > 
+save_others_least_1 _ -> clean_1 _ >
+
+copy_00 0 -> copy_00 0 >
+copy_00 1 -> copy_00 1 >
+copy_00 ? -> copy_00 ? >
+copy_00 _ -> return_00 0 < 
+
+return_00 0 -> return_00 0 <
+return_00 1 -> return_00 1 <
+return_00 ? -> return_00 ? <
+return_00 # -> save_others_least_0 0 <
+
+copy_01 0 -> copy_01 0 >
+copy_01 1 -> copy_01 1 >
+copy_01 ? -> copy_01 ? >
+copy_01 _ -> return_01 1 < 
+
+return_01 0 -> return_01 0 <
+return_01 1 -> return_01 1 <
+return_01 ? -> return_01 ? <
+return_01 # -> save_others_least_0 1 <
+
+copy_10 0 -> copy_10 0 >
+copy_10 1 -> copy_10 1 >
+copy_10 ? -> copy_10 ? >
+copy_10 _ -> return_10 0 < 
+
+return_10 0 -> return_10 0 <
+return_10 1 -> return_10 1 <
+return_10 ? -> return_10 ? <
+return_10 # -> save_others_least_1 0 <
+
+copy_11 0 -> copy_11 0 >
+copy_11 1 -> copy_11 1 >
+copy_11 ? -> copy_11 ? >
+copy_11 _ -> return_11 1 < 
+
+return_11 0 -> return_11 0 <
+return_11 1 -> return_11 1 <
+return_11 ? -> return_11 ? <
+return_11 # -> save_others_least_1 1 <
+
+clean_0 0 -> clean_0 _ > 
+clean_0 1 -> clean_0 _ >
+clean_0 ? -> ac 0 ^
+
+clean_1 0 -> clean_1 _ >
+clean_1 1 -> clean_1 _ >
+clean_1 ? -> ac 1 ^

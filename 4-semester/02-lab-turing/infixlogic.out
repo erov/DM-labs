@@ -1,0 +1,49 @@
+2
+
+S 0 _ -> check_and _ ^ 0 ^
+S 1 _ -> check_and _ ^ 1 ^
+S a _ -> S _ > a > 
+S o _ -> S _ > o >
+S ( _ -> S _ > $ >
+S ) _ -> check_or _ ^ _ <
+S _ _ -> check_or _ ^ _ <
+
+
+check_and _ 0 -> check_and_0 _ ^ _ <
+check_and _ 1 -> check_and_1 _ ^ _ <
+
+check_and_0 _ _ -> print_2nd_0 _ ^ _ >
+check_and_0 _ $ -> print_2nd_0 _ ^ $ >
+check_and_0 _ a -> and_0 _ ^ _ < 
+check_and_0 _ o -> print_2nd_0 _ ^ o > 
+
+check_and_1 _ _ -> print_2nd_1 _ ^ _ > 
+check_and_1 _ $ -> print_2nd_1 _ ^ $ >
+check_and_1 _ a -> and_1 _ ^ _ < 
+check_and_1 _ o -> print_2nd_1 _ ^ o >
+
+print_2nd_0 _ _ -> S _ > 0 >
+print_2nd_1 _ _ -> S _ > 1 >
+
+and_0 _ 0 -> check_and _ ^ 0 ^
+and_0 _ 1 -> check_and _ ^ 0 ^
+and_1 _ 0 -> check_and _ ^ 0 ^
+and_1 _ 1 -> check_and _ ^ 1 ^
+
+
+check_or _ 0 -> check_or_0 _ ^ _ <
+check_or _ 1 -> check_or_1 _ ^ _ < 
+
+check_or_0 _ _ -> AC 0 ^ _ ^
+check_or_0 _ o -> or_0 _ ^ _ < 
+check_or_0 _ $ -> check_and _ ^ 0 ^
+
+check_or_1 _ _ -> AC 1 ^ _ ^
+check_or_1 _ o -> or_1 _ ^ _ <
+check_or_1 _ $ -> check_and _ ^ 1 ^
+
+or_0 _ 0 -> check_or _ ^ 0 ^
+or_0 _ 1 -> check_or _ ^ 1 ^
+
+or_1 _ 0 -> check_or _ ^ 1 ^
+or_1 _ 1 -> check_or _ ^ 1 ^

@@ -1,0 +1,105 @@
+start: s
+accept: ac
+reject: rj
+blank: _
+
+s 0 -> go_right_0 # > 
+s 1 -> go_right_1 # >
+
+go_right_0 0 -> go_right_0 0 >
+go_right_0 1 -> go_right_0 1 >
+go_right_0 _ -> check_least_0 _ <
+
+go_right_1 0 -> go_right_1 0 >
+go_right_1 1 -> go_right_1 1 >
+go_right_1 _ -> check_least_1 _ < 
+
+check_least_0 0 -> left_00 ? < 
+check_least_0 1 -> left_01 ? < 
+check_least_0 # -> rj 0 ^
+
+check_least_1 0 -> left_10 ? < 
+check_least_1 1 -> left_11 ? < 
+check_least_1 # -> rj 1 ^
+
+left_00 0 -> left_00 0 <
+left_00 1 -> left_00 1 <
+left_00 # -> check_most_x0 0 > 
+
+left_01 0 -> left_01 0 <
+left_01 1 -> left_01 1 <
+left_01 # -> check_most_x1 0 > 
+
+left_10 0 -> left_10 0 <
+left_10 1 -> left_10 1 <
+left_10 # -> check_most_x0 1 >
+
+left_11 0 -> left_11 0 <
+left_11 1 -> left_11 1 <
+left_11 # -> check_most_x1 1 >
+
+check_most_x0 ? -> found_0 ? < 
+check_most_x0 0 -> right_00 # > 
+check_most_x0 1 -> right_10 # > 
+
+check_most_x1 ? -> found_1 ? < 
+check_most_x1 0 -> right_01 # > 
+check_most_x1 1 -> right_11 # > 
+
+right_00 0 -> right_00 0 >
+right_00 1 -> right_00 1 >
+right_00 ? -> check_least_0x 0 < 
+
+right_10 0 -> right_10 0 >
+right_10 1 -> right_10 1 >
+right_10 ? -> check_least_1x 0 < 
+
+right_01 0 -> right_01 0 >
+right_01 1 -> right_01 1 >
+right_01 ? -> check_least_0x 1 <
+
+right_11 0 -> right_11 0 >
+right_11 1 -> right_11 1 >
+right_11 ? -> check_least_1x 1 <
+
+check_least_0x # -> rj 0 ^
+check_least_0x 0 -> left_00 ? <
+check_least_0x 1 -> left_01 ? <
+
+check_least_1x # -> rj 1 ^
+check_least_1x 0 -> left_10 ? <
+check_least_1x 1 -> left_11 ? <
+
+found_0 0 -> found_0 0 <
+found_0 1 -> found_0 1 <
+found_0 _ -> ready_next_0 _ >  
+
+found_1 0 -> found_1 0 <
+found_1 1 -> found_1 1 <
+found_1 _ -> ready_next_1 _ > 
+
+ready_next_0 0 -> get_next_0 # >
+ready_next_0 1 -> rj 1 ^
+
+ready_next_1 0 -> rj 0 ^
+ready_next_1 1 -> get_next_1 # >
+
+get_next_0 0 -> get_next_0 0 >
+get_next_0 1 -> get_next_0 1 >
+get_next_0 ? -> save_next 0 >
+
+get_next_1 0 -> get_next_1 0 >
+get_next_1 1 -> get_next_1 1 >
+get_next_1 ? -> save_next 1 > 
+
+save_next _ -> ac _ ^
+save_next 0 -> return_next_0 ? <
+save_next 1 -> return_next_1 ? < 
+
+return_next_0 0 -> return_next_0 0 <
+return_next_0 1 -> return_next_0 1 <
+return_next_0 # -> ready_next_0 # >
+
+return_next_1 0 -> return_next_1 0 <
+return_next_1 1 -> return_next_1 1 <
+return_next_1 # -> ready_next_1 # >

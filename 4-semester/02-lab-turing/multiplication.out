@@ -1,0 +1,411 @@
+start: s
+accept: ac
+reject: rj
+blank: _
+
+
+s 0 -> set_separator 0 > 
+s 1 -> set_separator 1 >
+
+set_separator 0 -> set_separator 0 >
+set_separator 1 -> set_separator 1 >
+set_separator * -> set_separator * >
+set_separator _ -> return_separator $ <
+
+return_separator 0 -> return_separator 0 <
+return_separator 1 -> return_separator 1 <
+return_separator * -> return_separator * <
+return_separator _ -> copy_next _ >
+
+copy_next 0 -> sample_copy_0 # > 
+copy_next 1 -> sample_copy_1 # > 
+copy_next * -> take_higher * >
+
+sample_copy_0 0 -> sample_copy_0 0 >
+sample_copy_0 1 -> sample_copy_0 1 >
+sample_copy_0 * -> sample_copy_0 * >
+sample_copy_0 $ -> sample_copy_0 $ >
+sample_copy_0 _ -> sample_return_0 0 <
+
+sample_return_0 0 -> sample_return_0 0 <
+sample_return_0 1 -> sample_return_0 1 <
+sample_return_0 * -> sample_return_0 * <
+sample_return_0 $ -> sample_return_0 $ <
+sample_return_0 # -> copy_next 0 >
+
+sample_copy_1 0 -> sample_copy_1 0 >
+sample_copy_1 1 -> sample_copy_1 1 >
+sample_copy_1 * -> sample_copy_1 * >
+sample_copy_1 $ -> sample_copy_1 $ >
+sample_copy_1 _ -> sample_return_1 1 <
+
+sample_return_1 0 -> sample_return_1 0 <
+sample_return_1 1 -> sample_return_1 1 <
+sample_return_1 * -> sample_return_1 * <
+sample_return_1 $ -> sample_return_1 $ <
+sample_return_1 # -> copy_next 1 >
+
+
+
+
+take_higher 0 -> zeroing 0 <
+take_higher 1 -> next_number # >
+
+zeroing * -> zeroing _ <
+zeroing 0 -> zeroing _ <
+zeroing 1 -> zeroing _ <
+zeroing _ -> go_to_only_zero_left _ >
+
+go_to_only_zero_left _ -> go_to_only_zero_left _ >
+go_to_only_zero_left 0 -> clean_right 0 >
+
+clean_right $ -> clean_right _ >
+clean_right 0 -> clean_right _ >
+clean_right 1 -> clean_right _ >
+clean_right _ -> go_to_only_zero_right _ <
+
+go_to_only_zero_right _ -> go_to_only_zero_right _ <
+go_to_only_zero_right 0 -> ac 0 ^
+
+
+
+next_number 0 -> x2 0 < 
+next_number 1 -> x2 1 < 
+next_number $ -> all_done $ >
+next_number # -> next_number # >
+
+x2 # -> x2 # <
+x2 * -> copy_plus * < 
+
+copy_plus 0 -> copy_plus 0 <
+copy_plus 1 -> copy_plus 1 <
+copy_plus _ -> return_plus + >
+
+return_plus 0 -> return_plus 0 >
+return_plus 1 -> return_plus 1 >
+return_plus * -> copy_x * < 
+
+copy_x 0 -> copy_0 * <
+copy_x 1 -> copy_1 * <
+copy_x + -> x2_as_sum_written + <
+
+copy_0 0 -> copy_0 0 <
+copy_0 1 -> copy_0 1 < 
+copy_0 + -> copy_0 + <
+copy_0 _ -> return_0 0 > 
+
+return_0 0 -> return_0 0 >
+return_0 1 -> return_0 1 > 
+return_0 + -> return_0 + >
+return_0 * -> copy_x 0 <
+
+copy_1 0 -> copy_1 0 <
+copy_1 1 -> copy_1 1 < 
+copy_1 + -> copy_1 + <
+copy_1 _ -> return_1 1 > 
+
+return_1 0 -> return_1 0 >
+return_1 1 -> return_1 1 > 
+return_1 + -> return_1 + >
+return_1 * -> copy_x 1 <
+
+x2_as_sum_written 0 -> x2_as_sum_written 0 <
+x2_as_sum_written 1 -> x2_as_sum_written 1 <
+x2_as_sum_written 2 -> x2_as_sum_written 2 <
+x2_as_sum_written _ -> get_sum _ > 
+
+
+
+get_sum 0 -> to+ 0 >
+get_sum 1 -> to+ 1 >
+
+to+ 0 -> to+ 0 >
+to+ 1 -> to+ 1 >
+to+ + -> save_least + <
+
+save_least 0 -> get_last_0 # >  
+save_least 1 -> get_last_1 # > 
+save_least _ -> get_last_0 # >
+
+get_last_0 + -> get_last_0 + >
+get_last_0 0 -> get_last_0 0 >
+get_last_0 1 -> get_last_0 1 >
+get_last_0 _ -> check_sum_0 _ <
+get_last_0 * -> check_sum_0 * <
+
+get_last_1 + -> get_last_1 + >
+get_last_1 0 -> get_last_1 0 >
+get_last_1 1 -> get_last_1 1 >
+get_last_1 _ -> check_sum_1 _ <
+get_last_1 * -> check_sum_1 * <
+
+check_sum_0 0 -> return_sum_0 _ <
+check_sum_0 1 -> return_sum_1 _ <
+check_sum_0 + -> return_sum_0_final _ < 
+
+check_sum_1 0 -> return_sum_1 _ <
+check_sum_1 1 -> return_sum_2 _ < 
+check_sum_1 + -> return_sum_1_final _ <
+
+return_sum_0 0 -> return_sum_0 0 <
+return_sum_0 1 -> return_sum_0 1 <
+return_sum_0 + -> return_sum_0 + <
+return_sum_0 # -> save_least 0 <
+
+return_sum_1 0 -> return_sum_1 0 <
+return_sum_1 1 -> return_sum_1 1 <
+return_sum_1 + -> return_sum_1 + <
+return_sum_1 # -> save_least 1 <
+
+return_sum_2 0 -> return_sum_2 0 <
+return_sum_2 1 -> return_sum_2 1 <
+return_sum_2 + -> return_sum_2 + <
+return_sum_2 # -> move_carry # <
+
+move_carry 0 -> carry_ok_return 1 >  
+move_carry 1 -> move_carry 0 <
+move_carry _ -> carry_ok_return 1 >
+
+carry_ok_return 0 -> carry_ok_return 0 >
+carry_ok_return 1 -> carry_ok_return 1 >
+carry_ok_return # -> save_least 0 <
+
+return_sum_0_final 0 -> return_sum_0_final 0 <
+return_sum_0_final 1 -> return_sum_0_final 1 <
+return_sum_0_final # -> check_if_most # <
+
+check_if_most 0 -> not_most 0 >
+check_if_most 1 -> not_most 1 >
+check_if_most _ -> yes_most _ >
+
+not_most # -> to_start 0 <
+yes_most # -> x2_done _ >
+
+return_sum_1_final 0 -> return_sum_1_final 0 <
+return_sum_1_final 1 -> return_sum_1_final 1 <
+return_sum_1_final # -> to_start 1 <
+
+to_start 0 -> to_start 0 <
+to_start 1 -> to_start 1 <
+to_start _ -> x2_done _ >
+
+
+
+x2_done 0 -> x2_done 0 >
+x2_done 1 -> x2_done 1 >
+x2_done _ -> shrink_x _ <
+
+shrink_x 0 -> shrink_0 ? >
+shrink_x 1 -> shrink_1 ? > 
+shrink_x _ -> x2_done_shrinked _ >
+
+shrink_0 _ -> shrink_0 _ >
+shrink_0 * -> print_shrink_0 * <
+shrink_0 0 -> print_shrink_0 0 < 
+shrink_0 1 -> print_shrink_0 1 < 
+
+print_shrink_0 _ -> return_shrink_0 0 <
+return_shrink_0 _ -> return_shrink_0 _ <
+return_shrink_0 ? -> shrink_x _ <
+
+shrink_1 _ -> shrink_1 _ >
+shrink_1 * -> print_shrink_1 * <
+shrink_1 0 -> print_shrink_1 0 < 
+shrink_1 1 -> print_shrink_1 1 < 
+
+print_shrink_1 _ -> return_shrink_1 1 <
+return_shrink_1 _ -> return_shrink_1 _ <
+return_shrink_1 ? -> shrink_x _ <
+
+
+x2_done_shrinked _ -> x2_done_shrinked _ >
+x2_done_shrinked 0 -> x2_done_shrinked 0 >
+x2_done_shrinked 1 -> x2_done_shrinked 1 >
+x2_done_shrinked * -> x2_done_shrinked * >
+x2_done_shrinked # -> add_current # >
+
+add_current # -> add_current # >
+add_current 0 -> next_number # >
+add_current 1 -> go_add_plus # < 
+
+go_add_plus 0 -> go_add_plus 0 <
+go_add_plus 1 -> go_add_plus 1 <
+go_add_plus * -> go_add_plus * <
+go_add_plus # -> go_add_plus # <
+go_add_plus _ -> go_add_sample + >
+
+go_add_sample 0 -> go_add_sample 0 >
+go_add_sample 1 -> go_add_sample 1 >
+go_add_sample * -> go_add_sample * >
+go_add_sample # -> go_add_sample # >
+go_add_sample $ -> go_add_sample $ >
+go_add_sample _ -> add_sample _ <
+
+add_sample 0 -> add_sample_0 ? <
+add_sample 1 -> add_sample_1 ? <
+add_sample $ -> go_aplly_adding $ < 
+
+add_sample_0 0 -> add_sample_0 0 <
+add_sample_0 1 -> add_sample_0 1 <
+add_sample_0 $ -> add_sample_0 $ <
+add_sample_0 # -> add_sample_0 # <
+add_sample_0 * -> add_sample_0 * <
+add_sample_0 + -> add_sample_0 + <
+add_sample_0 _ -> return_sample_0 0 >
+
+return_sample_0 0 -> return_sample_0 0 >
+return_sample_0 1 -> return_sample_0 1 >
+return_sample_0 $ -> return_sample_0 $ >
+return_sample_0 # -> return_sample_0 # >
+return_sample_0 * -> return_sample_0 * >
+return_sample_0 + -> return_sample_0 + >
+return_sample_0 ? -> add_sample 0 <
+
+add_sample_1 0 -> add_sample_1 0 <
+add_sample_1 1 -> add_sample_1 1 <
+add_sample_1 $ -> add_sample_1 $ <
+add_sample_1 # -> add_sample_1 # <
+add_sample_1 * -> add_sample_1 * <
+add_sample_1 + -> add_sample_1 + <
+add_sample_1 _ -> return_sample_1 1 >
+
+return_sample_1 0 -> return_sample_1 0 >
+return_sample_1 1 -> return_sample_1 1 >
+return_sample_1 $ -> return_sample_1 $ >
+return_sample_1 # -> return_sample_1 # >
+return_sample_1 * -> return_sample_1 * >
+return_sample_1 + -> return_sample_1 + >
+return_sample_1 ? -> add_sample 1 <
+
+go_aplly_adding 0 -> go_aplly_adding 0 <
+go_aplly_adding 1 -> go_aplly_adding 1 <
+go_aplly_adding $ -> go_aplly_adding $ <
+go_aplly_adding # -> go_aplly_adding # <
+go_aplly_adding * -> go_aplly_adding * <
+go_aplly_adding + -> go_aplly_adding + <
+go_aplly_adding _ -> get_sum__adding_current _ >
+
+
+
+get_sum__adding_current 0 -> to+__adding_current 0 >
+get_sum__adding_current 1 -> to+__adding_current 1 >
+
+to+__adding_current 0 -> to+__adding_current 0 >
+to+__adding_current 1 -> to+__adding_current 1 >
+to+__adding_current + -> save_least__adding_current + <
+
+save_least__adding_current 0 -> get_last_0__adding_current # >  
+save_least__adding_current 1 -> get_last_1__adding_current # > 
+save_least__adding_current _ -> get_last_0__adding_current # >
+
+get_last_0__adding_current + -> get_last_0__adding_current + >
+get_last_0__adding_current 0 -> get_last_0__adding_current 0 >
+get_last_0__adding_current 1 -> get_last_0__adding_current 1 >
+get_last_0__adding_current _ -> check_sum_0__adding_current _ <
+get_last_0__adding_current * -> check_sum_0__adding_current * <
+
+get_last_1__adding_current + -> get_last_1__adding_current + >
+get_last_1__adding_current 0 -> get_last_1__adding_current 0 >
+get_last_1__adding_current 1 -> get_last_1__adding_current 1 >
+get_last_1__adding_current _ -> check_sum_1__adding_current _ <
+get_last_1__adding_current * -> check_sum_1__adding_current * <
+
+check_sum_0__adding_current 0 -> return_sum_0__adding_current _ <
+check_sum_0__adding_current 1 -> return_sum_1__adding_current _ <
+check_sum_0__adding_current + -> return_sum_0_final__adding_current _ < 
+
+check_sum_1__adding_current 0 -> return_sum_1__adding_current _ <
+check_sum_1__adding_current 1 -> return_sum_2__adding_current _ < 
+check_sum_1__adding_current + -> return_sum_1_final__adding_current _ <
+
+return_sum_0__adding_current 0 -> return_sum_0__adding_current 0 <
+return_sum_0__adding_current 1 -> return_sum_0__adding_current 1 <
+return_sum_0__adding_current + -> return_sum_0__adding_current + <
+return_sum_0__adding_current # -> save_least__adding_current 0 <
+
+return_sum_1__adding_current 0 -> return_sum_1__adding_current 0 <
+return_sum_1__adding_current 1 -> return_sum_1__adding_current 1 <
+return_sum_1__adding_current + -> return_sum_1__adding_current + <
+return_sum_1__adding_current # -> save_least__adding_current 1 <
+
+return_sum_2__adding_current 0 -> return_sum_2__adding_current 0 <
+return_sum_2__adding_current 1 -> return_sum_2__adding_current 1 <
+return_sum_2__adding_current + -> return_sum_2__adding_current + <
+return_sum_2__adding_current # -> move_carry__adding_current # <
+
+move_carry__adding_current 0 -> carry_ok_return__adding_current 1 >  
+move_carry__adding_current 1 -> move_carry__adding_current 0 <
+move_carry__adding_current _ -> carry_ok_return__adding_current 1 >
+
+carry_ok_return__adding_current 0 -> carry_ok_return__adding_current 0 >
+carry_ok_return__adding_current 1 -> carry_ok_return__adding_current 1 >
+carry_ok_return__adding_current # -> save_least__adding_current 0 <
+
+return_sum_0_final__adding_current 0 -> return_sum_0_final__adding_current 0 <
+return_sum_0_final__adding_current 1 -> return_sum_0_final__adding_current 1 <
+return_sum_0_final__adding_current # -> check_if_most__adding_current # <
+
+check_if_most__adding_current 0 -> not_most__adding_current 0 >
+check_if_most__adding_current 1 -> not_most__adding_current 1 >
+check_if_most__adding_current _ -> yes_most__adding_current _ >
+
+not_most__adding_current # -> to_start__adding_current 0 <
+yes_most__adding_current # -> x3_done__adding_current _ >
+
+return_sum_1_final__adding_current 0 -> return_sum_1_final__adding_current 0 <
+return_sum_1_final__adding_current 1 -> return_sum_1_final__adding_current 1 <
+return_sum_1_final__adding_current # -> to_start__adding_current 1 <
+
+to_start__adding_current 0 -> to_start__adding_current 0 <
+to_start__adding_current 1 -> to_start__adding_current 1 <
+to_start__adding_current _ -> x3_done__adding_current _ >
+
+
+
+x3_done__adding_current 0 -> x3_done__adding_current 0 >
+x3_done__adding_current 1 -> x3_done__adding_current 1 >
+x3_done__adding_current _ -> shrink_x__adding_current _ <
+
+shrink_x__adding_current 0 -> shrink_0__adding_current ? >
+shrink_x__adding_current 1 -> shrink_1__adding_current ? > 
+shrink_x__adding_current _ -> x3_done_shrinked__adding_current _ >
+
+shrink_0__adding_current _ -> shrink_0__adding_current _ >
+shrink_0__adding_current * -> print_shrink_0__adding_current * <
+shrink_0__adding_current 0 -> print_shrink_0__adding_current 0 < 
+shrink_0__adding_current 1 -> print_shrink_0__adding_current 1 < 
+
+print_shrink_0__adding_current _ -> return_shrink_0__adding_current 0 <
+return_shrink_0__adding_current _ -> return_shrink_0__adding_current _ <
+return_shrink_0__adding_current ? -> shrink_x__adding_current _ <
+
+shrink_1__adding_current _ -> shrink_1__adding_current _ >
+shrink_1__adding_current * -> print_shrink_1__adding_current * <
+shrink_1__adding_current 0 -> print_shrink_1__adding_current 0 < 
+shrink_1__adding_current 1 -> print_shrink_1__adding_current 1 < 
+
+print_shrink_1__adding_current _ -> return_shrink_1__adding_current 1 <
+return_shrink_1__adding_current _ -> return_shrink_1__adding_current _ <
+return_shrink_1__adding_current ? -> shrink_x__adding_current _ <
+
+
+x3_done_shrinked__adding_current _ -> x3_done_shrinked__adding_current _ >
+x3_done_shrinked__adding_current 0 -> x3_done_shrinked__adding_current 0 >
+x3_done_shrinked__adding_current 1 -> x3_done_shrinked__adding_current 1 >
+x3_done_shrinked__adding_current * -> x3_done_shrinked__adding_current * >
+x3_done_shrinked__adding_current # -> next_number # >
+
+all_done 0 -> all_done _ >
+all_done 1 -> all_done _ >
+all_done _ -> clear_upto_mul _ <
+
+clear_upto_mul _ -> clear_upto_mul _ <
+clear_upto_mul 0 -> clear_upto_mul _ <
+clear_upto_mul 1 -> clear_upto_mul _ <
+clear_upto_mul # -> clear_upto_mul _ <
+clear_upto_mul $ -> clear_upto_mul _ <
+clear_upto_mul * -> go_to_begin _ <
+
+go_to_begin 0 -> go_to_begin 0 <
+go_to_begin 1 -> go_to_begin 1 <
+go_to_begin _ -> ac _ >

@@ -1,0 +1,75 @@
+start: s
+accept: ac
+reject: rj
+blank: _
+
+s 0 -> to+ 0 >
+s 1 -> to+ 1 >
+
+to+ 0 -> to+ 0 >
+to+ 1 -> to+ 1 >
+to+ + -> save_least + <
+
+save_least 0 -> get_last_0 # >  
+save_least 1 -> get_last_1 # > 
+save_least _ -> get_last_0 # >
+
+get_last_0 + -> get_last_0 + >
+get_last_0 0 -> get_last_0 0 >
+get_last_0 1 -> get_last_0 1 >
+get_last_0 _ -> check_sum_0 _ <
+
+get_last_1 + -> get_last_1 + >
+get_last_1 0 -> get_last_1 0 >
+get_last_1 1 -> get_last_1 1 >
+get_last_1 _ -> check_sum_1 _ <
+
+check_sum_0 0 -> return_sum_0 _ <
+check_sum_0 1 -> return_sum_1 _ <
+check_sum_0 + -> return_sum_0_final _ < 
+
+check_sum_1 0 -> return_sum_1 _ <
+check_sum_1 1 -> return_sum_2 _ < 
+check_sum_1 + -> return_sum_1_final _ <
+
+return_sum_0 0 -> return_sum_0 0 <
+return_sum_0 1 -> return_sum_0 1 <
+return_sum_0 + -> return_sum_0 + <
+return_sum_0 # -> save_least 0 <
+
+return_sum_1 0 -> return_sum_1 0 <
+return_sum_1 1 -> return_sum_1 1 <
+return_sum_1 + -> return_sum_1 + <
+return_sum_1 # -> save_least 1 <
+
+return_sum_2 0 -> return_sum_2 0 <
+return_sum_2 1 -> return_sum_2 1 <
+return_sum_2 + -> return_sum_2 + <
+return_sum_2 # -> move_carry # <
+
+move_carry 0 -> carry_ok_return 1 >  
+move_carry 1 -> move_carry 0 <
+move_carry _ -> carry_ok_return 1 >
+
+carry_ok_return 0 -> carry_ok_return 0 >
+carry_ok_return 1 -> carry_ok_return 1 >
+carry_ok_return # -> save_least 0 <
+
+return_sum_0_final 0 -> return_sum_0_final 0 <
+return_sum_0_final 1 -> return_sum_0_final 1 <
+return_sum_0_final # -> check_if_most # <
+
+check_if_most 0 -> not_most 0 >
+check_if_most 1 -> not_most 1 >
+check_if_most _ -> yes_most _ >
+
+not_most # -> to_start 0 <
+yes_most # -> ac _ >
+
+return_sum_1_final 0 -> return_sum_1_final 0 <
+return_sum_1_final 1 -> return_sum_1_final 1 <
+return_sum_1_final # -> to_start 1 <
+
+to_start 0 -> to_start 0 <
+to_start 1 -> to_start 1 <
+to_start _ -> ac _ >

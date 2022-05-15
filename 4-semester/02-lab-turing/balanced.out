@@ -1,0 +1,32 @@
+start: s
+accept: ac
+reject: rj
+blank: _
+
+s _ -> ac _ ^
+s ( -> take_next ( ^
+s ) -> rj ) ^
+
+take_next ( -> go_inc # <
+take_next ) -> go_dec # <
+
+go_inc # -> go_inc # <
+go_inc 1 -> go_inc 1 <
+go_inc _ -> go_back 1 >
+
+go_back 1 -> go_back 1 >
+go_back # -> go_back # >
+go_back ( -> take_next ( ^
+go_back ) -> take_next ) ^
+go_back _ -> assert_not_empty _ <
+
+go_dec # -> go_dec # <
+go_dec 1 -> go_dec 1 <
+go_dec _ -> dec _ >
+
+dec 1 -> go_back _ >
+dec # -> rj # ^
+
+assert_not_empty # -> assert_not_empty # <
+assert_not_empty _ -> ac _ ^
+assert_not_empty 1 -> rj 1 ^
