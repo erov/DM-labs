@@ -1,4 +1,3 @@
-// #pragma GCC optimize("Ofast")
 #include <iostream>
 #include <cmath>
 #include <vector>
@@ -16,8 +15,6 @@
 #include <bitset>
 #include <stack>
 #include <climits>
-
-// continue push_back setprecision __builtin_popcount
 
 using namespace std;
 
@@ -69,7 +66,6 @@ string get(map<string, int> &dictionary, int code) {
 			return it.f;
 		}
 	}
-	// assert(false);
 	return "";
 }
 
@@ -105,9 +101,4 @@ void solve() {
 			buffer = nxt;
 		}
 	}
-
-	// cout << '\n';
-	// for (auto it : dictionary) {
-	// 	cout << it.f << ' ' << it.s << '\n';
-	// }
 }

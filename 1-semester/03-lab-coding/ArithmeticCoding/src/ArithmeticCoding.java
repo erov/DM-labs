@@ -33,10 +33,8 @@ public class ArithmeticCoding {
             r = l.add(dif.multiply(BigInteger.valueOf(new_r)));
             l = l.add(dif.multiply(BigInteger.valueOf(new_l)));
 
-//            System.out.println(c + " " + l + "/" + z + " " + r + "/" + z);
         }
 
-//        System.out.println(z);
         System.out.println(l + "/" + z + " " + r + "/" + z);
 
         BigInteger qq = BigInteger.valueOf(2);

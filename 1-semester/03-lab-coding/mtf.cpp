@@ -1,4 +1,3 @@
-// #pragma GCC optimize("Ofast")
 #include <iostream>
 #include <cmath>
 #include <vector>
@@ -16,8 +15,6 @@
 #include <bitset>
 #include <stack>
 #include <climits>
-
-// continue push_back setprecision __builtin_popcount
 
 using namespace std;
 
@@ -80,6 +77,5 @@ void solve() {
 		}
 		cout << j + 1 << ' ';
 		alp = alp[j] + alp.substr(0, j) + alp.substr(j + 1);
-		// cout << alp << '\n';
 	}
 }

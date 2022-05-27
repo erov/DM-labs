@@ -46,14 +46,6 @@ int main() {
 			a[i].push_back(num);
 		}
 
-		// for (int i = 0; i < k; i++) {
-		// 	for (auto it : a[i]) {
-		// 		cout << it << ' ';
-		// 	}
-		// 	cout << '\n';
-		// }
-		// cout << '\n';
-
 		set<int> bad;
 		bool found = false;
 		for (int i = size(a) - 1; i >= 0 && !found; i--) {

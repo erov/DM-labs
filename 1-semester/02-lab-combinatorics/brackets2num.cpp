@@ -47,8 +47,6 @@ int main() {
 	string s;
 	cin >> s;
 
-	// gen("", size(s), 0);
-
 	int n = size(s);
 	vector<vector<ll>> cnt(n + 1, vector<ll> (n + 1, 0));
 	cnt[0][0] = 1;

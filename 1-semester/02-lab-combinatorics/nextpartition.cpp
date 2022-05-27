@@ -8,31 +8,6 @@ using namespace std;
 typedef long long ll;
 #define size(a) (int) a.size()
 
-/*
-1+1+1+1+1
-1+1+1+2
-1+1+3
-1+2+2
-1+4
-2+3
-5
-
-1+1+1+1
-1+1+2
-1+3
-2+2
-4
-
-1+1+1
-1+2
-3
-
-1+1
-2
-
-1
-*/
-
 int get_id(vector<int> &a, int n, vector<vector<int>> &dp) {
 	int last = 1, sum = 0, id = 0;
 	for (int i = 0; i < size(a); i++) {

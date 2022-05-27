@@ -31,10 +31,29 @@
 *.app
 
 
+1-semester/01-lab-boolean/input.txt
+1-semester/01-lab-boolean/output.txt
+1-semester/01-lab-boolean/*.exe
+
+1-semester/02-lab-combinatorics/input.txt
+1-semester/02-lab-combinatorics/output.txt
+1-semester/02-lab-combinatorics/*.exe
+
+1-semester/03-lab-coding/input.txt
+1-semester/03-lab-coding/output.txt
+1-semester/03-lab-coding/*.exe
+1-semester/03-lab-coding/ArithmeticCoding/.idea
+1-semester/03-lab-coding/ArithmeticCoding/out
+1-semester/03-lab-coding/ArithmeticCoding/*.iml
+1-semester/03-lab-coding/ArithmeticDecoding/.idea
+1-semester/03-lab-coding/ArithmeticDecoding/out
+1-semester/03-lab-coding/ArithmeticDecoding/*.iml
+
+
+
+
 4-semester/01-lab-genfunction/input.txt
 4-semester/01-lab-genfunction/output.txt
 4-semester/01-lab-genfunction/*.exe
 
-4-semester/02-lab-turing/turing-machine-visualizer
-4-semester/02-lab-turing/turing-machine-visualizer/*
 4-semester/02-lab-turing/input.txt

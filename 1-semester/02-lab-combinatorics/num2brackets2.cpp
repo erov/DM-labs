@@ -10,19 +10,6 @@ using namespace std;
 typedef long long ll;
 #define size(a) (int) a.size()
 
-// void gen(string str, int n, int bal) {
-//     if (size(str) == n) {
-//         cout << str << '\n';
-//         return;
-//     }
-//     if (bal + 1 <= n - size(str) - 1) {
-//         gen(str + "(", n, bal + 1);
-//     }
-//     if (bal > 0) {
-//         gen(str + ")", n, bal - 1);
-//     }
-// }
-
 ll get_id(string &s, vector<vector<ll>> &cnt) {
 	ll id = 0;
 	int bal = 0;
@@ -127,13 +114,6 @@ int main() {
 	ll k;
 	cin >> m >> k;
 
-	// cout << int('(') << ' ' <<  int(')') << ' ' << int('[') << ' ' << int(']') << '\n';
-	// vector<string> s = {"(())", "()()", "([])", "[()]", "[[]]", "()[]", "[]()", "[][]"};
-	// sort(s.begin(), s.end() );
-	// for (auto it : s) {
-	// 	cout << it << '\n';
-	// }
-
 	int n = m * 2;
 
 	vector<vector<ll>> cnt(n + 1, vector<ll> (n + 1, 0));
@@ -143,13 +123,6 @@ int main() {
 			cnt[i][j] = (j ? cnt[i - 1][j - 1] : 0) + (j + 1 <= n ? cnt[i - 1][j + 1] : 0);
 		}
 	}
-
-	// for (int i = 1; i <= n; i++) {
-	// 	for (int j = 0; j <= n; j++) {
-	// 		cout << cnt[i][j] << ' ';
-	// 	}
-	// 	cout << '\n';
-	// }
 
 	cout << get_seq(n, k, cnt);
 }

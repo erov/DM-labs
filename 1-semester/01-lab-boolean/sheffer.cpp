@@ -24,7 +24,6 @@ int main() {
     cin >> n;
 
     string s = "((A0|B0)|(A0|B0))";
-    // cout << char(124);
 
     for (int i = 1; i < n; i++) {
     	string id = get_id(i);
