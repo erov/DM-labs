@@ -123,8 +123,6 @@ vector<uint64_t> divide(vector<uint64_t>& p, vector<uint64_t>& q, size_t const C
     return div;
 }
 
-
-// DEBUG
 bool check_equality_of_gfs(vector<uint64_t> lhs, vector<uint64_t> rhs) {
     trim(lhs);
     trim(rhs);

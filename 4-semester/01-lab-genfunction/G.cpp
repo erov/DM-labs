@@ -143,7 +143,7 @@ vector<int64_t> parse(string const& object, size_t const SIZE, size_t& id) {
     if (object[id] == 'L') {
         id += 2;
         auto p = parse(object, SIZE, id);
-        p[0] = 0; // !
+        p[0] = 0; 
         ++id;
 
         vector<int64_t> num = {1};
@@ -155,7 +155,7 @@ vector<int64_t> parse(string const& object, size_t const SIZE, size_t& id) {
     if (object[id] == 'S') {
         id += 2;
         auto p = parse(object, SIZE, id);
-        p[0] = 0; // !
+        p[0] = 0; 
         ++id;
 
         vector<int64_t> result = {1};

@@ -204,7 +204,6 @@ vector<int64_t> ln(vector<int64_t>& p, size_t const COEFFS, int64_t const MOD) {
     return expand_taylor(result_t, p, MOD);
 }
 
-// DEBUG
 bool check_equality_of_gfs(vector<int64_t> lhs, vector<int64_t> rhs) {
     trim(lhs);
     trim(rhs);

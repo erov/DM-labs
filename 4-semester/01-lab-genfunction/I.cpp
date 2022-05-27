@@ -89,9 +89,6 @@ vector<int64_t> multiply(vector<int64_t>& p, vector<int64_t>& q, int64_t const M
             mul[i + j] = modulo(mul[i + j] + modulo(p[i] * q[j], MOD), MOD);
         }
     }
-    // if (trim_to != 0) {
-    //     trim(mul, trim_to);
-    // }
     trim(mul);
     return mul;
 }
@@ -155,9 +152,7 @@ void apply_minus_t(vector<int64_t>& p, int64_t const MOD) {
 vector<int64_t> shrink(vector<int64_t> p, size_t start) {
     vector<int64_t> result;
 
-    // result.push_back(p[0]);
-
-    for (size_t i = start /*+ (start == 0 ? 2 : 0)*/; i < p.size(); i += 2) {
+    for (size_t i = start; i < p.size(); i += 2) {
         result.push_back(p[i]);
     }
 
@@ -190,10 +185,6 @@ void solve() {
     vector<int64_t> p = a;
     p = multiply(p, q, MOD);
     trim(p, k);
-    // trim(p);
-
-    // vector<int64_t> temp = divide(p, q, n, MOD);
-    // print(temp);
 
     vector<int64_t> q_minus;
     --n;
@@ -204,19 +195,13 @@ void solve() {
         p = multiply(p, q_minus, MOD, 2 * (k + 1));
         q = multiply(q, q_minus, MOD, 2 * (k + 1));
 
-        // print(q);
-
         p = shrink(p, n % 2);
         q = shrink(q, 0);
-
-        // trim(p, k + 1);
-        // trim(q, k + 1);
 
         n /= 2;
     }
 
     p = divide(p, q, n + 1, MOD);
-    // print(p);
 
     cout << p[n];
 }
