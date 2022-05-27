@@ -98,9 +98,7 @@ void solve() {
 
     vector<edge> no_used;
     for (size_t j = 0; j != m; ++j) {
-        if (unite(g[j].u, g[j].v)) {
-            // became connected
-        } else {
+        if (!unite(g[j].u, g[j].v)) {
             no_used.push_back(g[j]);
         }
     }

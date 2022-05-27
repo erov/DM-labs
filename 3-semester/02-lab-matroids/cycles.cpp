@@ -70,8 +70,6 @@ void solve() {
             value |= (1 << id);
         }
 
-        // cout << value << '\n';
-
         cycles.insert(value);
     }
 

@@ -58,8 +58,6 @@ void solve() {
         return;
     }
 
-
-    // graph matoids
     constexpr size_t INF = numeric_limits<size_t>::max();
     constexpr size_t MATROID = 2'000 + 1;
 
@@ -114,7 +112,6 @@ void solve() {
         return graph_color[matroid_id][u] != graph_color[matroid_id][v];
     };
 
-    // bfs
     vector<vector<size_t>> replaced_g(m);  // now reverse edges
 
     vector<size_t> dist(m, INF);
@@ -125,10 +122,6 @@ void solve() {
         dist.assign(m, INF);
         prev.assign(m, INF);
 
-        // for (size_t start : s) {
-        //     dist[start] = 0;
-        //     que.push(start);
-        // }
         dist[start] = 0;
         que.push(start);
 
@@ -153,14 +146,11 @@ void solve() {
     base[0].insert(0);
 
     for (size_t item = 1; item != m; ++item) {
-        // cerr << item << '\n';
-
         for (size_t e = 0; e != m; ++e) {
             replaced_g[e].clear();
         }
 
         vector<set<size_t>> s(MATROID);
-        // vector<size_t> in_s(m, INF);
 
         for (size_t matroid_id = 0; matroid_id != base.size(); ++matroid_id) {
 
@@ -188,13 +178,11 @@ void solve() {
                         continue;
                     }
                     if (graph_independent(matroid_id, x)) {
-                        // replaced_g[y].push_back(x);
                         replaced_g[x].push_back(y);
                     }
                 }
 
                 if (graph_independent(matroid_id, item)) {
-                    // replaced_g[y].push_back(item);
                     replaced_g[item].push_back(y);
                 }
 
@@ -206,8 +194,6 @@ void solve() {
                     continue;
                 }
                 if (graph_independent(matroid_id, x)) {
-                    // s.push_back(x);
-                    // in_s[x] = matroid_id;
                     s[matroid_id].insert(x);
                 }
             }
@@ -246,8 +232,6 @@ void solve() {
             }
 
             reverse(path.begin(), path.end());
-
-            // size_t x = item;
 
             for (size_t i = 0; i != path.size(); ++i) {
                 size_t x = path[i];

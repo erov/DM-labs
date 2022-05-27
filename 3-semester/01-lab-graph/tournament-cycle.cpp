@@ -1,4 +1,3 @@
-// #pragma GCC optimize("Ofast")
 #include <iostream>
 #include <climits>
 #include <cstddef>
@@ -115,20 +114,14 @@ void solve() {
                     break;
                 }
             }
-            // ++head;
+
             if (to_add.empty()) {
                 break;
             }
         }
 
     }
-
-    // assert(cycle.size() == n);
-
-    // for (size_t v = 0; v != cycle.size(); ++v) {
-    //     assert(g[cycle[v]][cycle[(v + 1) % n]]);
-    // }
-
+    
     for (auto v : cycle) {
         cout << ++v << ' ';
     }

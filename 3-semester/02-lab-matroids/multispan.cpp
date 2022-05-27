@@ -59,7 +59,6 @@ void solve() {
     }
 
 
-    // graph matoids
     constexpr size_t INF = numeric_limits<size_t>::max();
     constexpr size_t MAX_M = 2'000 + 47;
     
@@ -131,7 +130,6 @@ void solve() {
 
 
     for (size_t item = 0; item != m; ++item) {
-        // cerr << item << '\n';
         vector<size_t> swap_with(m);
         queue<size_t> que;
         que.push(item);
@@ -144,12 +142,6 @@ void solve() {
                 ++available_bases;
             }
         }
-
-        // cerr << item  << '\n';
-        // for (size_t id : base_id) {
-        //     cerr << id << ' ';
-        // }
-        // cerr << '\n';
 
         for (;;) {
             swap_with.assign(m, INF);
@@ -186,7 +178,6 @@ void solve() {
             }
 
             if (!swap_seq_found) {  // dependent :( => need more base
-                // mark_graph(available_bases++, item);
                 que.push(item);
                 ++available_bases;
                 continue;
@@ -197,9 +188,6 @@ void solve() {
             while (swap_with[edge_id] != INF) {
                 add_in_ith_base(matroid_id, edge_id);
                 rm_from_ith_base(base_id[edge_id], edge_id);
-
-                // base_id[edge_id] = matroid_id;
-                // matroid_id = (matroid_id + available_bases - 1) % available_bases;
                 swap(base_id[edge_id], matroid_id);
                 edge_id = swap_with[edge_id];
                 
@@ -225,8 +213,4 @@ void solve() {
         }
         cout << '\n';
     }
-
-    // for (size_t i = 0; i != m; ++i) {
-    //     cout << base_id[i] << ' ';
-    // }
 }

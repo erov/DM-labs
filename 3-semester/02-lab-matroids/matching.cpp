@@ -57,10 +57,6 @@ void solve() {
         return a.w > b.w;
     });
 
-    // for (auto [w, i] : left) {
-    //     cout << w << ' ' << i << '\n';
-    // }
-
     vector<vector<size_t>> g(n);
     for (size_t i = 0; i != n; ++i) {
         size_t k;
@@ -105,10 +101,6 @@ void solve() {
         } else { 
             ++taken;    
         }
-        // for (auto v : matching) {
-        //     cout << v << ' ';
-        // }
-        // cout << '\n';
     }
 
     vector<size_t> ans(n, 0);

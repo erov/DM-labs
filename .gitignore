@@ -37,7 +37,7 @@
 1-semester/01-lab-boolean/*.out
 
 1-semester/02-lab-combinatorics/home.in
-1-semester/02-lab-combinatorics/output.txt
+1-semester/02-lab-combinatorics/home.out
 1-semester/02-lab-combinatorics/*.exe
 1-semester/02-lab-combinatorics/*.out
 
@@ -54,7 +54,7 @@
 
 
 2-semester/04-lab-automata/home.in
-2-semester/04-lab-automata/output.txt
+2-semester/04-lab-automata/home.out
 2-semester/04-lab-automata/*.exe
 2-semester/04-lab-automata/*.out
 
@@ -62,6 +62,17 @@
 2-semester/05-lab-cf-grammar/home.out
 2-semester/05-lab-cf-grammar/*.exe
 2-semester/05-lab-cf-grammar/*.out
+
+
+3-semester/01-lab-graph/input.txt
+3-semester/01-lab-graph/output.txt
+3-semester/01-lab-graph/*.exe
+3-semester/01-lab-graph/*.out
+
+3-semester/02-lab-matroids/input.txt
+3-semester/02-lab-matroids/output.txt
+3-semester/02-lab-matroids/*.exe
+3-semester/02-lab-matroids/*.out
 
 
 4-semester/01-lab-genfunction/input.txt

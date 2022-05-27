@@ -25,8 +25,8 @@ int main() {
         freopen("output.txt", "w", stdout);
         clock_t start_clock = clock();
     #else
-     freopen("rainbow.in", "r", stdin);
-     freopen("rainbow.out", "w", stdout);
+        freopen("rainbow.in", "r", stdin);
+        freopen("rainbow.out", "w", stdout);
     #endif
     
     solve();
@@ -79,50 +79,8 @@ void solve() {
 
     // M2 - graph
 
-    vector<vector<pair<size_t, size_t>>> g(n); // to, edge_id
+    vector<vector<pair<size_t, size_t>>> g(n);
     size_t banned_id = INF;
-    // vector<size_t> used(n, 0);
-
-    // auto dfs_cycle_check = [&](auto& self, size_t v, size_t id) -> bool {
-    //     used[v] = 1;
-    //     for (auto [to, to_id] : g[v]) {
-    //         if (to_id == id || banned_id == to_id) {
-    //             continue;
-    //         }
-    //         if (used[to] == 1) {
-    //             return false;
-    //         }
-    //         if (used[to] == 0 && !self(self, to, to_id)) {
-    //             return false;
-    //         }
-    //     }
-    //     used[v] = 2;
-    //     return true;
-    // };
-
-    // auto graph_independent = [&](size_t id) -> bool {
-    //     size_t u = edge[id].u;
-    //     size_t v = edge[id].v;
-
-    //     // auto gv_iter = g[v].insert({u, id});
-    //     // auto gu_iter = g[u].insert({v, id});
-    //     g[v].push_back({u, id});
-    //     g[u].push_back({v, id});
-    //     used.assign(n, 0);
-
-    //     // only 1 possible cycle
-    //     bool result = dfs_cycle_check(dfs_cycle_check, v, m * 2);
-
-    //     // g[u].erase({v, id});
-    //     // g[v].erase({u, id});
-    //     assert(g[u].back() == make_pair(v, id));
-    //     g[u].pop_back();
-    //     assert(g[v].back() == make_pair(u, id));
-    //     g[v].pop_back();
-
-    //     return result;
-    // };
-
     vector<size_t> graph_color(n);
     size_t current_color;
     vector<size_t> last_painted;
@@ -173,7 +131,6 @@ void solve() {
     };
 
 
-    // bfs
     vector<size_t> dist(m, INF);
     vector<size_t> prev(m, INF);
     queue<size_t> que;
@@ -234,12 +191,10 @@ void solve() {
             paint_comp(y);
 
             for (size_t x : non_base) {
-                // rainbow:
                 if (rainbow_independent(x)) {
                     replaced_g[y].push_back(x);
                 }
                 
-                // graph:
                 if (graph_independent(x)) {
                     replaced_g[x].push_back(y);
                 }
@@ -252,8 +207,6 @@ void solve() {
 
         vector<size_t> s;
         vector<size_t> t;
-
-        // paint_graph(INF);
 
         for (size_t x : non_base) {
             if (rainbow_independent(x)) {

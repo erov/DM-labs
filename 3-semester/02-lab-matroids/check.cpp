@@ -55,16 +55,13 @@ void solve() {
         }
 
         independent.insert(value);
-        // cout << value << '\n';
     }
 
-    // 1st
     if (!independent.count(0)) {
         cout << "NO";
         return;
     }
 
-    // 2nd
     for (uint32_t a : independent) {
         for (uint32_t b = 0; b != (1 << n); ++b) {
             if ((a & b) == b) {
@@ -76,7 +73,6 @@ void solve() {
         }
     }
 
-    // 3rd
     for (uint32_t a : independent) {
         for (uint32_t b : independent) {
             if (a == b || __builtin_popcount(a) <= __builtin_popcount(b)) {
