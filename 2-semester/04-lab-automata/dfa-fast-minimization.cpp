@@ -1,4 +1,3 @@
-// #pragma GCC optimize("Ofast")
 #include <iostream>
 #include <cmath>
 #include <vector>
@@ -66,15 +65,7 @@ struct DFA {
 
 void make(vector<vector<pair<char, int>>> &g, DFA &a) {
  	int n = size(g);
-    // vector<vector<pair<char, int>>> g(n);
     vector<vector<int>> rg(n);
-    // for (int i = 0; i < m; ++i) {
-    //     int u, v;
-    //     char c;
-    //     cin >> u >> v >> c;
-    //     g[--u].push_back({c, --v});
-    //     rg[v].push_back(u);
-    // }
     for (int i = 0; i < n; ++i) {
     	for (auto [ch, to] : g[i]) {
     		rg[to].push_back(i);
@@ -122,31 +113,9 @@ void make(vector<vector<pair<char, int>>> &g, DFA &a) {
 
 void make2(vector<vector<pair<char, int>>> &g, DFA &a) {
  	int n = size(g);
-    // vector<vector<pair<char, int>>> g(n);
-    // vector<vector<int>> rg(n);
-    // for (int i = 0; i < m; ++i) {
-    //     int u, v;
-    //     char c;
-    //     cin >> u >> v >> c;
-    //     g[--u].push_back({c, --v});
-    //     rg[v].push_back(u);
-    // }
-    // for (int i = 0; i < n; ++i) {
-    // 	for (auto [ch, to] : g[i]) {
-    // 		rg[to].push_back(i);
-    // 	}
-    // }
  
     vector<int> used(n, 0);
     queue<int> q;
- 
-    // for (int v = 0; v < a.n; ++v) {
-    // 	if (!a.term[v]) {
-    // 		continue;
-    // 	}
-    //     q.push(v);
-    //     used[v] = 1;
-    // }
 
     q.push(0);
     used[0] = true;
@@ -154,7 +123,7 @@ void make2(vector<vector<pair<char, int>>> &g, DFA &a) {
     while (!q.empty()) {
         int v = q.front();
         q.pop();
-        for (auto [ch, to] : g[v]) {  // for (int to : rg[v])
+        for (auto [ch, to] : g[v]) {
              if (!used[to]) {
                 used[to] = 1;
                 q.push(to);
@@ -196,7 +165,6 @@ void solve() {
 		char c;
 		cin >> u >> v >> c;
 		g[--u].push_back({c, --v});
-		// a.g[--v][c - 'a'].push_back(--u);
 	}
 
 
@@ -216,15 +184,6 @@ void solve() {
 		ids[v] = a.term[v];
 	}
 
-	// for (int i = 0; i < size(storage); ++i) {
-	// 	cout << "i=" << i << "\n";
-	// 	for (auto it : storage[i]) {
-	// 		cout << it << ' ';
-	// 	}
-	// 	cout << '\n';
-	// }
-	// cout << '\n';
-
 	queue<pair<int, int>> q;
 	for (int ch = 0; ch < 26; ++ch) {
 		q.push({1, ch});
@@ -237,15 +196,12 @@ void solve() {
 		auto [class_id, ch] = q.front();
 		q.pop();
 
-		// cout << class_id << ' ' << ch << ": ";
 		unordered_map<int, vector<int>> from;
 		for (int i : storage[class_id]) {
 			for (int j : a.g[i][ch]) {
 				from[ids[j]].push_back(j);
-				// cout << ids[j] << ' ';
 			}
 		}
-		// cout << '\n';
 
 		for (auto [i, to_change] : from) {
 			if (size(to_change) < size(storage[i])) {
@@ -266,39 +222,6 @@ void solve() {
 			}
 		}
 	}
-
-	// for (int i = 0; i < size(storage); ++i) {
-	// 	cout << "i=" << i << "\n";
-	// 	for (auto it : storage[i]) {
-	// 		cout << it << ' ';
-	// 	}
-	// 	cout << '\n';
-	// }
-
-	// vector<int> coords;
-
-	// for (int i = 0; i < size(storage); ++i) {
-	// 	if (size(storage[i]) > 0 && i != ids[0]) {
-	// 		coords.push_back(i);
-	// 	}
-	// }
-
-	// unordered_map<int, int> original_class;
-
-	// original_class[ids[0]] = 0;
-
-	// for (int i = 0; i < size(coords); ++i) {
-	// 	original_class[coords[i]] = i + 1;
-	// }
-
-
-	// set<int> new_term;
-	// for (int i = 0; i < a.n; i++) {
-	// 	if (a.term[i] && original_class.count(ids[i])) {
-	// 		new_term.insert(original_class[ids[i]]);
-	// 	}
-	// }
-
 
 	set<pair<pair<int, int>, char>> already, edges;
 
@@ -343,21 +266,3 @@ void solve() {
 		cout << ++it.f.f << ' ' << ++it.f.s << ' ' << it.s << '\n';
 	}
 }
-
-/*
-3 2 1
-3
-1 2 a
-2 3 a
-
-4 8 2
-1 4
-1 2 a
-2 1 a
-1 3 b
-3 1 b
-2 4 b
-4 2 b
-3 4 a
-4 3 a
-*/

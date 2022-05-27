@@ -31,17 +31,20 @@
 *.app
 
 
-1-semester/01-lab-boolean/input.txt
-1-semester/01-lab-boolean/output.txt
+1-semester/01-lab-boolean/home.in
+1-semester/01-lab-boolean/home.out
 1-semester/01-lab-boolean/*.exe
+1-semester/01-lab-boolean/*.out
 
-1-semester/02-lab-combinatorics/input.txt
+1-semester/02-lab-combinatorics/home.in
 1-semester/02-lab-combinatorics/output.txt
 1-semester/02-lab-combinatorics/*.exe
+1-semester/02-lab-combinatorics/*.out
 
-1-semester/03-lab-coding/input.txt
-1-semester/03-lab-coding/output.txt
+1-semester/03-lab-coding/home.in
+1-semester/03-lab-coding/home.out
 1-semester/03-lab-coding/*.exe
+1-semester/03-lab-coding/*.out
 1-semester/03-lab-coding/ArithmeticCoding/.idea
 1-semester/03-lab-coding/ArithmeticCoding/out
 1-semester/03-lab-coding/ArithmeticCoding/*.iml
@@ -50,6 +53,15 @@
 1-semester/03-lab-coding/ArithmeticDecoding/*.iml
 
 
+2-semester/04-lab-automata/home.in
+2-semester/04-lab-automata/output.txt
+2-semester/04-lab-automata/*.exe
+2-semester/04-lab-automata/*.out
+
+2-semester/05-lab-cf-grammar/home.in
+2-semester/05-lab-cf-grammar/home.out
+2-semester/05-lab-cf-grammar/*.exe
+2-semester/05-lab-cf-grammar/*.out
 
 
 4-semester/01-lab-genfunction/input.txt
